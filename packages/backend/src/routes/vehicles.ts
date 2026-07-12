@@ -6,6 +6,8 @@ import {
   searchVehicles,
   updateVehicle,
   deleteVehicle,
+  purchaseVehicle,
+  restockVehicle,
 } from '../controllers/vehicleController';
 
 const router = Router();
@@ -18,5 +20,8 @@ router.post('/', createVehicle);
 router.get('/', getVehicles);
 router.put('/:id', updateVehicle);
 router.delete('/:id', requireAdmin, deleteVehicle);
+
+router.post('/:id/purchase', purchaseVehicle);
+router.post('/:id/restock', requireAdmin, restockVehicle);
 
 export default router;

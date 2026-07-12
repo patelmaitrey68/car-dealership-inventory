@@ -145,3 +145,75 @@ export async function deleteVehicle(req: Request, res: Response): Promise<void> 
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+export async function purchaseVehicle(req: Request, res: Response): Promise<void> {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      res.status(400).json({ message: 'Invalid vehicle ID format' });
+      return;
+    }
+
+    // Atomically decrement quantity if it's greater than 0
+    const updatedVehicle = await Vehicle.findOneAndUpdate(
+      { _id: id, quantity: { $gt: 0 } },
+      { $inc: { quantity: -1 } },
+      { new: true, runValidators: true }
+    );
+
+    if (updatedVehicle) {
+      res.status(200).json(updatedVehicle);
+      return;
+    }
+
+    // Distinguish 404 from 409
+    const vehicleExists = await Vehicle.findById(id);
+    if (!vehicleExists) {
+      res.status(404).json({ message: 'Vehicle not found' });
+      return;
+    }
+
+    res.status(409).json({ message: 'Vehicle is out of stock' });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+export async function restockVehicle(req: Request, res: Response): Promise<void> {
+  try {
+    const { id } = req.params;
+    const { quantity } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      res.status(400).json({ message: 'Invalid vehicle ID format' });
+      return;
+    }
+
+    if (quantity === undefined || quantity === null) {
+      res.status(400).json({ message: 'Restock quantity is required' });
+      return;
+    }
+
+    const restockQty = Number(quantity);
+    if (isNaN(restockQty) || !Number.isInteger(restockQty) || restockQty <= 0) {
+      res.status(400).json({ message: 'Restock quantity must be a positive integer' });
+      return;
+    }
+
+    const updatedVehicle = await Vehicle.findByIdAndUpdate(
+      id,
+      { $inc: { quantity: restockQty } },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedVehicle) {
+      res.status(404).json({ message: 'Vehicle not found' });
+      return;
+    }
+
+    res.status(200).json(updatedVehicle);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
