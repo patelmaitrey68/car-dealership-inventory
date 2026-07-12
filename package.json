@@ -1,0 +1,8 @@
+{
+  "name": "car-dealership-inventory",
+  "private": true,
+  "workspaces": [
+    "packages/backend",
+    "packages/frontend"
+  ]
+}
