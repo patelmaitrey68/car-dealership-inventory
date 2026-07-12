@@ -1,11 +1,13 @@
 import express from 'express';
 import cors from 'cors';
+import authRoutes from './routes/auth';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// No routes implemented yet. This is neutral test infrastructure.
+// Register API routes
+app.use('/api/auth', authRoutes);
 
 export default app;
