@@ -150,8 +150,24 @@ npm run test --workspace=backend
 ```bash
 npm run test --workspace=frontend
 ```
+
 ---
 
+## 9. UI Screenshots
+
+### Login Page
+![AutoFlow Login Page](docs/screenshots/01-login-page.png)
+
+### User Vehicle Dashboard
+![AutoFlow User Dashboard](docs/screenshots/02-user-dashboard.png)
+
+### Admin Vehicle Management Dashboard
+![AutoFlow Admin Dashboard](docs/screenshots/03-admin-dashboard.png)
+
+### Add Vehicle Modal Form
+![AutoFlow Add Vehicle Modal](docs/screenshots/04-add-vehicle-modal.png)
+
+---
 
 ## 10. My AI Usage
 
