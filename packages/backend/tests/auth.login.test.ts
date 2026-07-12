@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -9,7 +9,7 @@ describe('User Login Endpoint (POST /api/auth/login)', () => {
   const testPassword = 'password123';
   let testUser: any;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const passwordHash = await bcrypt.hash(testPassword, 10);
     testUser = await User.create({
       name: 'Bob Jones',
