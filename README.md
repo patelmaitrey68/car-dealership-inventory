@@ -150,18 +150,8 @@ npm run test --workspace=backend
 ```bash
 npm run test --workspace=frontend
 ```
-
 ---
 
-## 9. UI Screenshots
-
-### Dark-Mode Login Page
-![AutoFlow Login](docs/screenshots/login_page.jpg)
-
-### Customer Showroom View
-![AutoFlow Showroom](docs/screenshots/user_dashboard.jpg)
-
----
 
 ## 10. My AI Usage
 
