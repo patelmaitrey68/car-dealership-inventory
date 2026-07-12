@@ -15,3 +15,22 @@ export interface AuthResponse {
 export interface ApiErrorResponse {
   message: string;
 }
+
+export interface Vehicle {
+  _id: string;
+  make: string;
+  model: string;
+  category: string;
+  price: number;
+  quantity: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface SearchFilters {
+  make?: string;
+  model?: string;
+  category?: string;
+  minPrice?: number | string;
+  maxPrice?: number | string;
+}
